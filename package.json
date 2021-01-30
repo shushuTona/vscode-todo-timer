@@ -11,14 +11,36 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.sayHello"
+        "onView:timer-controller"
     ],
     "main": "./out/extension",
     "contributes": {
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "todo-timer",
+                    "title": "ToDo Timer",
+                    "icon": "./out/img/icon.svg"
+                }
+            ]
+        },
+        "views": {
+            "todo-timer": [
+                {
+                    "id": "timer-controller",
+                    "name": "Timer Controller"
+                },
+                {
+                    "id": "todo-list",
+                    "name": "ToDo List"
+                }
+            ]
+        },
         "commands": [
             {
                 "command": "extension.sayHello",
-                "title": "Hello World"
+                "title": "hello from json",
+                "category": "Hello"
             }
         ]
     },
