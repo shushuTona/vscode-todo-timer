@@ -10,8 +10,12 @@
     "categories": [
         "Other"
     ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/shushuTona/vscode-todo-timer.git"
+    },
     "activationEvents": [
-        "onView:timer-controller"
+        "onView:todoList"
     ],
     "main": "./out/extension",
     "contributes": {
@@ -19,7 +23,7 @@
             "activitybar": [
                 {
                     "id": "todo-timer",
-                    "title": "ToDo Timer",
+                    "title": "ToDo-Timer",
                     "icon": "./out/img/icon.svg"
                 }
             ]
@@ -27,22 +31,75 @@
         "views": {
             "todo-timer": [
                 {
-                    "id": "timer-controller",
-                    "name": "Timer Controller"
+                    "id": "todoList",
+                    "name": "ToDoList"
                 },
                 {
-                    "id": "todo-list",
-                    "name": "ToDo List"
+                    "id": "complete",
+                    "name": "Complete Item"
                 }
             ]
         },
         "commands": [
             {
-                "command": "extension.sayHello",
-                "title": "hello from json",
-                "category": "Hello"
+                "command": "todoList.refreshEntry",
+                "title": "Refresh",
+                "icon": {
+                    "light": "./out/img/refresh-icon.svg",
+                    "dark": "./out/img/refresh-icon.svg"
+                }
+            },
+            {
+                "command": "todoList.addEntry",
+                "title": "Add task",
+                "icon": {
+                    "light": "./out/img/plus-icon.svg",
+                    "dark": "./out/img/plus-icon.svg"
+                }
+            },
+            {
+                "command": "todoList.editEntry",
+                "title": "Edit",
+                "icon": {
+                    "light": "./out/img/pen-icon.svg",
+                    "dark": "./out/img/pen-icon.svg"
+                }
+            },
+            {
+                "command": "todoList.deleteEntry",
+                "title": "Delete",
+                "icon": {
+                    "light": "./out/img/cross-icon.svg",
+                    "dark": "./out/img/cross-icon.svg"
+                }
             }
-        ]
+        ],
+        "menus": {
+            "view/title": [
+                {
+                    "command": "todoList.refreshEntry",
+                    "when": "view == todoList",
+                    "group": "navigation"
+                },
+                {
+                    "command": "todoList.addEntry",
+                    "when": "view == todoList",
+                    "group": "navigation"
+                }
+            ],
+            "view/item/context": [
+                {
+                    "command": "todoList.editEntry",
+                    "when": "view == todoList && viewItem == dependency",
+                    "group": "inline"
+                },
+                {
+                    "command": "todoList.deleteEntry",
+                    "when": "view == todoList && viewItem == dependency",
+                    "group": "inline"
+                }
+            ]
+        }
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
