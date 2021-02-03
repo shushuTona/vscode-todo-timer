@@ -1,94 +1,13 @@
 'use strict';
 
 import * as vscode from 'vscode';
-import * as path from 'path';
-
-class NodeDependenciesProvider implements vscode.TreeDataProvider<Dependency> {
-    private _onDidChangeTreeData: vscode.EventEmitter<Dependency | undefined | null | void> = new vscode.EventEmitter<Dependency | undefined | null | void>();
-    readonly onDidChangeTreeData: vscode.Event<Dependency | undefined | null | void> = this._onDidChangeTreeData.event;
-
-    refresh(): void {
-        this._onDidChangeTreeData.fire();
-    }
-
-    getTreeItem( element: Dependency ): vscode.TreeItem {
-        return element;
-    }
-
-    getChildren( element?: Dependency ): Thenable<Dependency[]> {
-        if ( element ) {
-            return Promise.resolve([]);
-        } else {
-            return Promise.resolve(
-                this.getDepsInPackageJson()
-            );
-        }
-    }
-
-    private getDepsInPackageJson(): Dependency[] {
-        const arry = [
-            {
-                label: 'hoge',
-                time: '30'
-            },
-            {
-                label: 'piyo',
-                time: '15'
-            },
-            {
-                label: 'fuga',
-                time: '20'
-            },
-        ];
-        const returnArry = [];
-
-        for ( let item of arry) {
-            const instance = new Dependency(
-                item.label,
-                item.time,
-                vscode.TreeItemCollapsibleState.None
-            );
-
-            returnArry.push( instance );
-        }
-
-        return returnArry;
-    }
-}
-
-class Dependency extends vscode.TreeItem {
-    constructor(
-        public readonly label: string,
-        private version: string,
-        public readonly collapsibleState: vscode.TreeItemCollapsibleState
-    ) {
-        super( label, collapsibleState );
-        this.tooltip = `${this.label}-${this.version}`;
-        this.description = this.version;
-    }
-
-    iconPath = {
-        light: path.join( __filename, '..', '..', 'out', 'img', 'active-icon.svg' ),
-        dark: path.join( __filename, '..', '..', 'out', 'img', 'active-icon.svg' )
-    };
-
-    contextValue = 'dependency';
-}
+import TodoProvider from './TodoProvider.class';
 
 export function activate( context: vscode.ExtensionContext ) {
-    vscode.window.showInformationMessage( `Successfully activate.` );
+    vscode.window.showInformationMessage( `Successfully activate ToDo-Timer.` );
 
-    const nodeDependenciesProvider = new NodeDependenciesProvider();
-    vscode.window.registerTreeDataProvider('todoList', nodeDependenciesProvider);
-    vscode.commands.registerCommand( 'todoList.refreshEntry', () => {
-        nodeDependenciesProvider.refresh();
-    });
-    vscode.commands.registerCommand( 'todoList.editEntry', () => {
-        vscode.window.showInformationMessage( `Successfully called editEntry.` );
-    });
-    vscode.commands.registerCommand( 'todoList.deleteEntry', () => {
-        vscode.window.showInformationMessage( `Successfully called deleteEntry.` );
-    } );
+    const todoProvider = new TodoProvider();
+    vscode.window.registerTreeDataProvider('todoList', todoProvider);
 
     // ステータスバーにカウント表示部分を追加
     const statusBarItemMain = vscode.window.createStatusBarItem( vscode.StatusBarAlignment.Left, 6 );
@@ -135,6 +54,24 @@ export function activate( context: vscode.ExtensionContext ) {
     };
 
     const commandArray = [
+        {
+            commandId: 'todoList.refreshEntry',
+            commandCallback: () => {
+                todoProvider.refresh();
+            }
+        },
+        {
+            commandId: 'todoList.editEntry',
+            commandCallback: () => {
+                vscode.window.showInformationMessage( `Successfully called editEntry.` );
+            }
+        },
+        {
+            commandId: 'todoList.deleteEntry',
+            commandCallback: () => {
+                vscode.window.showInformationMessage( `Successfully called deleteEntry.` );
+            }
+        },
         {
             commandId: 'todoList.countStart',
             commandCallback: () => {

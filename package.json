@@ -32,11 +32,11 @@
             "todo-timer": [
                 {
                     "id": "todoList",
-                    "name": "ToDoList"
+                    "name": "ToDo List"
                 },
                 {
-                    "id": "complete",
-                    "name": "Complete Item"
+                    "id": "finishedList",
+                    "name": "Finished List"
                 }
             ]
         },
@@ -90,12 +90,12 @@
             "view/item/context": [
                 {
                     "command": "todoList.editEntry",
-                    "when": "view == todoList && viewItem == dependency",
+                    "when": "view == todoList && viewItem == TodoItem",
                     "group": "inline"
                 },
                 {
                     "command": "todoList.deleteEntry",
-                    "when": "view == todoList && viewItem == dependency",
+                    "when": "view == todoList && viewItem == TodoItem",
                     "group": "inline"
                 }
             ]
