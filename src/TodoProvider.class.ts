@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import TodoItem from './TodoItem.class';
+import { TodoItem } from './TodoItem.class';
 
 class TodoProvider implements vscode.TreeDataProvider<TodoItem> {
     private _onDidChangeTreeData: vscode.EventEmitter<TodoItem | undefined | null | void> = new vscode.EventEmitter<TodoItem | undefined | null | void>();
@@ -54,4 +54,4 @@ class TodoProvider implements vscode.TreeDataProvider<TodoItem> {
     }
 }
 
-export default TodoProvider;
+export { TodoProvider };

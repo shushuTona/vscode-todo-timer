@@ -20,4 +20,4 @@ class TodoItem extends vscode.TreeItem {
     contextValue = 'TodoItem';
 }
 
-export default TodoItem;
+export { TodoItem };

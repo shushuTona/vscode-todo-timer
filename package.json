@@ -42,7 +42,7 @@
         },
         "commands": [
             {
-                "command": "todoList.refreshEntry",
+                "command": "todoList.refreshList",
                 "title": "Refresh",
                 "icon": {
                     "light": "./out/img/refresh-icon.svg",
@@ -50,7 +50,7 @@
                 }
             },
             {
-                "command": "todoList.addEntry",
+                "command": "todoList.addToDoItem",
                 "title": "Add task",
                 "icon": {
                     "light": "./out/img/plus-icon.svg",
@@ -58,7 +58,7 @@
                 }
             },
             {
-                "command": "todoList.editEntry",
+                "command": "todoList.editToDoItem",
                 "title": "Edit",
                 "icon": {
                     "light": "./out/img/pen-icon.svg",
@@ -66,7 +66,7 @@
                 }
             },
             {
-                "command": "todoList.deleteEntry",
+                "command": "todoList.deleteToDoItem",
                 "title": "Delete",
                 "icon": {
                     "light": "./out/img/cross-icon.svg",
@@ -77,26 +77,25 @@
         "menus": {
             "view/title": [
                 {
-                    "command": "todoList.refreshEntry",
+                    "command": "todoList.refreshList",
                     "when": "view == todoList",
                     "group": "navigation"
                 },
                 {
-                    "command": "todoList.addEntry",
+                    "command": "todoList.addToDoItem",
                     "when": "view == todoList",
                     "group": "navigation"
                 }
             ],
             "view/item/context": [
                 {
-                    "command": "todoList.editEntry",
+                    "command": "todoList.editToDoItem",
                     "when": "view == todoList && viewItem == TodoItem",
                     "group": "inline"
                 },
                 {
-                    "command": "todoList.deleteEntry",
-                    "when": "view == todoList && viewItem == TodoItem",
-                    "group": "inline"
+                    "command": "todoList.deleteToDoItem",
+                    "when": "view == todoList && viewItem == TodoItem"
                 }
             ]
         }
@@ -109,10 +108,10 @@
         "test": "npm run compile && node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
-        "typescript": "^2.6.1",
-        "vscode": "^1.1.6",
-        "tslint": "^5.8.0",
+        "@types/mocha": "^2.2.42",
         "@types/node": "^7.0.43",
-        "@types/mocha": "^2.2.42"
+        "tslint": "^5.8.0",
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6"
     }
 }
